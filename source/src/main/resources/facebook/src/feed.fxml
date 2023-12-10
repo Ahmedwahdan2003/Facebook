@@ -55,5 +55,10 @@
             </ImageView>
          </children>
       </Pane>
+      <Button fx:id="new_post" alignment="CENTER" contentDisplay="CENTER" layoutX="1127.0" layoutY="330.0" minWidth="53.0" mnemonicParsing="false" onAction="#open_write_post_scene" prefHeight="59.0" prefWidth="129.0" style="-fx-background-color: grey; -fx-border-color: #F2F3F5;" text="new_post" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

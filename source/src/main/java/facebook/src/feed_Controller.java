@@ -1,6 +1,11 @@
 package facebook.src;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -9,7 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class feed_Controller {
@@ -102,5 +109,9 @@ public class feed_Controller {
         }
 
 
+    }
+
+    public void open_write_post_scene(ActionEvent event) {
+    scene_changer.loadAndSetScene("write_post.fxml","New Post!");
     }
 }
