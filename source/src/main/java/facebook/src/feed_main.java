@@ -12,10 +12,10 @@ public class feed_main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(feed_main.class.getResource("feed.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setScene(scene);
-        stage.show();
+       Parent root = FXMLLoader.load(getClass().getResource("feed.fxml"));
+       Scene scene = new Scene(root);
+       stage.setScene(scene);
+       stage.show();
     }
 
 

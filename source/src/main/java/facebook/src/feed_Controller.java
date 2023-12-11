@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class feed_Controller {
     @FXML
@@ -47,7 +48,7 @@ public class feed_Controller {
             feedContainer.getChildren().add(postLabel);
         }
 
-
+        homeIcon.setImage(homeiconSelected);
     }
     @FXML
     private ImageView homeIcon;
@@ -115,7 +116,16 @@ public class feed_Controller {
 
     }
 
-    public void open_write_post_scene(ActionEvent event) {
-    scene_changer.loadAndSetScene("write_post.fxml","New Post!");
+        private Scene scene;
+        private Parent root;
+    public void open_write_post_scene(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("write_post.fxml")));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+
+    //scene_changer.loadAndSetScene("write_post.fxml","New Post!");
     }
 }

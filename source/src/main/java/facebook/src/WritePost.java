@@ -3,6 +3,8 @@ package facebook.src;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -17,8 +19,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class WritePost {
 
@@ -57,12 +61,21 @@ public class WritePost {
 
             // Format the current date using the formatter
 
-            post new_post = new post(DATA.posts.size()+1,currentDate,ispublic,postcontent,1 );
+            post new_post = new post(DATA.posts.size()+1,currentDate,ispublic,postcontent,4 );
             DATA.posts.add(new_post);
             int x= DATA.posts.size()-1;
             post p= DATA.posts.get(x);
             System.out.println(p.post_id+" "+ p.content+ " "+p.is_public+"  "+p.Date);
         }
     }
+    private Scene scene;
+    private Parent root;
+    public void new_post_Back_btn(MouseEvent mouseEvent) throws IOException {
 
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("feed.fxml")));
+        Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

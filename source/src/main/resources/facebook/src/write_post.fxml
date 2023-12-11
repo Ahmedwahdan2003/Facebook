@@ -15,6 +15,11 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
+            <Label fx:id="Back_btn" alignment="CENTER" layoutX="6.0" layoutY="11.0" onMouseClicked="#new_post_Back_btn" prefHeight="45.0" prefWidth="103.0" style="-fx-background-color: #1877f2; -fx-border-color: white; -fx-border-width: 2px;" text="BACK" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <TextArea fx:id="post_content" layoutX="145.0" layoutY="113.0" prefHeight="262.0" prefWidth="364.0" style="-fx-border-color: #1877f2; -fx-border-image-width: 5px;" />
