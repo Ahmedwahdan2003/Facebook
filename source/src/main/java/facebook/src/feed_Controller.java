@@ -1,5 +1,6 @@
 package facebook.src;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +46,8 @@ public class feed_Controller {
             Label postLabel = p.createFixedPost();
             feedContainer.getChildren().add(postLabel);
         }
+
+
     }
     @FXML
     private ImageView homeIcon;
@@ -73,7 +76,8 @@ public class feed_Controller {
     public void home_btn_clicked(MouseEvent mouseEvent) {
         if (homeIcon.getImage().equals(homeiconDefault)) {
             homeIcon.setImage(homeiconSelected);
-           // home_btn.setStyle("-fx-border-color: #1877f2;");
+
+            // home_btn.setStyle("-fx-border-color: #1877f2;");
 
         } else {
             homeIcon.setImage(homeiconDefault);

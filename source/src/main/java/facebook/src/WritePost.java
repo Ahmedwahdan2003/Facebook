@@ -17,6 +17,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class WritePost {
 
 
@@ -30,23 +33,35 @@ public class WritePost {
     private CheckBox privacy_chkbx;
     @FXML
     public void add_new_post(MouseEvent mouseEvent) {
-
-
+         boolean ispublic =true;
+         String postcontent;
         if (post_content.getText().trim().isEmpty()) {
             confirmationlabel.setTextFill(Color.RED);
             confirmationlabel.setText("Error: Please write something in the post.");
         } else {
             confirmationlabel.setTextFill(Color.BLUE);
             confirmationlabel.setText("post created successfully!");
-
+            postcontent=post_content.getText();
             // Example: Print the content to the console
-            System.out.println("Post Content: " + post_content.getText());
+           // System.out.println("Post Content: " + post_content.getText());
             if(privacy_chkbx.isSelected()){
-                System.out.println("Post is private");
+                //System.out.println("Post is private");
+                ispublic=false;
             }else{
-                System.out.println("Post is public");
+               // System.out.println("Post is public");
             }
-            // Add your post creation logic here
+            LocalDate currentDate = LocalDate.now();
+
+            // Create a formatter for the "yy/MM/dd" format
+
+
+            // Format the current date using the formatter
+
+            post new_post = new post(DATA.posts.size()+1,currentDate,ispublic,postcontent,1 );
+            DATA.posts.add(new_post);
+            int x= DATA.posts.size()-1;
+            post p= DATA.posts.get(x);
+            System.out.println(p.post_id+" "+ p.content+ " "+p.is_public+"  "+p.Date);
         }
     }
 

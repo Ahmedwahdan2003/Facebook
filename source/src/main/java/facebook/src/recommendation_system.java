@@ -37,9 +37,6 @@ public class recommendation_system {
 
         ArrayList<Integer>posts_ids = new ArrayList<>(feed_set);
         ArrayList<post>posts_objects = new ArrayList<>();
-        for(Integer i :posts_ids){
-            System.out.println(i);
-        }
          for(Integer post_id:posts_ids){                        //converting ids to actual posts objects
              posts_objects.add(DATA.getPostById(post_id));
          }
