@@ -1,5 +1,8 @@
 package facebook.src;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 
 public class User {
@@ -8,6 +11,7 @@ public class User {
     public String password;
     public ArrayList<Integer> friends;
     public ArrayList<Integer> restricted_users;
+    public String profile_photo_path;
 
     public User(int id, String name, String password, ArrayList<Integer> friends, ArrayList<Integer> restricted_users) {
         this.id = id;

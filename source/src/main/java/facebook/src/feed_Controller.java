@@ -1,10 +1,7 @@
 package facebook.src;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,13 +12,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class feed_Controller {
+public class Feed_Controller {
     @FXML
     private BorderPane mainContainer;
 
@@ -88,7 +83,7 @@ public class feed_Controller {
 
     }
 
-    public void search_btn_clicked(MouseEvent mouseEvent) {
+    public void search_btn_clicked(ActionEvent actionEvent) throws IOException {
         if (searchIcon.getImage().equals(searchiconDefault)) {
             searchIcon.setImage(searchiconSelected);
            // search_btn.setStyle("-fx-border-color: #1877f2;");
@@ -97,8 +92,8 @@ public class feed_Controller {
             searchIcon.setImage(searchiconDefault);
            // search_btn.setStyle("-fx-border-color: black;");
         }
-
-
+        Scene_Changer scene_changer = new Scene_Changer();
+        scene_changer.loadAndSetScene(actionEvent, "Search_For_Friends.fxml");
     }
 
     public void chat_btn_clicked(MouseEvent mouseEvent) {
@@ -118,13 +113,9 @@ public class feed_Controller {
 
         private Scene scene;
         private Parent root;
-    public void open_write_post_scene(ActionEvent event) throws IOException{
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("write_post.fxml")));
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
+    public void open_write_post_scene(ActionEvent actionEvent) throws IOException{
+        Scene_Changer scene_changer = new Scene_Changer();
+        scene_changer.loadAndSetScene(actionEvent, "write_post.fxml");
 
     //scene_changer.loadAndSetScene("write_post.fxml","New Post!");
     }

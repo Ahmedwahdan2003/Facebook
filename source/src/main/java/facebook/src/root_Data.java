@@ -6,7 +6,7 @@ public abstract class root_Data {
     protected static ArrayList<User> users = new ArrayList<>();
     protected static ArrayList<post> posts = new ArrayList<>();
     protected static ArrayList<interactions> interactionList = new ArrayList<>();
-
+    protected static User currentUser;
 
 
     protected static User getUserById(int userId) {

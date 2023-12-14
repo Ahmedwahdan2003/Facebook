@@ -16,9 +16,10 @@ public class DATA extends root_Data {
 
     private static void read_users() {
 
-       final  String usersFilePath="Text Files/Users.txt";
+       final String usersFilePath="Text Files/Users.txt";
        final String friendsFilePath="Text Files/Friends.txt";
        final String restrictedUsersFilePath="Text Files/restricted_users.txt";
+       final String photosFilePath = "Text Files/Profile_Photo.txt";
         try {
             // Read users
             File usersFile = new File(usersFilePath);
@@ -29,7 +30,7 @@ public class DATA extends root_Data {
                 String[] userData = line.split(" ");
 
                 int id = Integer.parseInt(userData[0]);
-                String name = userData[1];
+                String name = userData[1].replace('_', ' ');
                 String password = userData[2];
 
                 User user = new User(id, name, password, new ArrayList<>(), new ArrayList<>());
@@ -82,6 +83,22 @@ public class DATA extends root_Data {
             }
 
             restrictedUsersScanner.close();
+
+            // Read users
+            File photosFile = new File(photosFilePath);
+            Scanner PhotosScanner = new Scanner(photosFile);
+
+            while (PhotosScanner.hasNextLine()) {
+                String line = PhotosScanner.nextLine();
+                String[] userData = line.split(" ");
+
+                int id = Integer.parseInt(userData[0]);
+                User user = DATA.users.get(id - 1);
+                user.profile_photo_path = userData[1];
+            }
+
+            PhotosScanner.close();
+
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

@@ -1,34 +1,27 @@
 package facebook.src;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
-public class scene_changer {
+import java.util.Objects;
 
-    public static void loadAndSetScene(String fxmlFileName, String title) {
-        try {
-            // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(feed_main.class.getResource(fxmlFileName));
-            Parent root = loader.load();
+public class Scene_Changer {
 
-            // Create the scene
-            Scene scene = new Scene(root);
-
-            // Create a new stage
-            Stage stage = new Stage();
-
-            // Set the title and scene for the new stage
-            stage.setTitle(title);
-            stage.setScene(scene);
-
-            // Show the new stage
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception appropriately
-        }
+    public Parent root;
+    public FXMLLoader loader;
+    public void loadAndSetScene(Event event, String fxmlFileName) throws IOException{
+        // Load the FXML file
+        loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+        root = loader.load();
+        Main main = new Main();
+        main.window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        main.window.setScene(scene);
+        main.window.show();
     }
 }
