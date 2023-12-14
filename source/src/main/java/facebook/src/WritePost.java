@@ -1,6 +1,5 @@
 package facebook.src;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -12,6 +11,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public class WritePost {
+
 
     @FXML
     private TextArea post_content;
@@ -47,15 +47,16 @@ public class WritePost {
 
             // Format the current date using the formatter
 
-            post new_post = new post(DATA.posts.size()+1,currentDate,ispublic,postcontent,4 );
-            DATA.posts.add(new_post);
-            int x= DATA.posts.size()-1;
-            post p= DATA.posts.get(x);
+            Post new_post = new Post(DATA.Posts.size()+1,currentDate,ispublic,postcontent,1 );
+            DATA.Posts.add(new_post);
+            int x= DATA.Posts.size()-1;
+            Post p= DATA.Posts.get(x);
             System.out.println(p.post_id+" "+ p.content+ " "+p.is_public+"  "+p.Date);
         }
     }
-    @FXML private void new_post_Back_btn(ActionEvent actionEvent) throws IOException {
+
+    public void new_post_Back_btn(MouseEvent mouseEvent) throws IOException {
         Scene_Changer scene_changer = new Scene_Changer();
-        scene_changer.loadAndSetScene(actionEvent, "feed.fxml");
+       scene_changer.loadAndSetScene(mouseEvent,"feed.fxml");
     }
 }

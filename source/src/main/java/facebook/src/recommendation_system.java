@@ -19,14 +19,14 @@ public class recommendation_system {
 
 
     //get all feed (frineds posts + recommended posts)
-    public ArrayList<post>get_logged_in_user_feed(){
+    public ArrayList<Post>get_logged_in_user_feed(){
         // we will have 2ArrayLists of integers (recommended_posts_ids,user_friends_post_ids)
         //1- remove duplicates
         //2- convert ids to posts objects
         //3- check restriction and date and post privacy(important)
 
-           ArrayList<post>user_published_posts = new ArrayList<>(); // make the user also see his posts
-            for(post p:DATA.posts){
+           ArrayList<Post>user_published_posts = new ArrayList<>(); // make the user also see his posts
+            for(Post p:DATA.Posts){
                 if(p.author_id== logged_in_user.id)
                     user_published_posts.add(p);
             }
@@ -36,15 +36,15 @@ public class recommendation_system {
          feed_set.addAll(recommended_posts);//remove duplicate posts
 
         ArrayList<Integer>posts_ids = new ArrayList<>(feed_set);
-        ArrayList<post>posts_objects = new ArrayList<>();
+        ArrayList<Post>posts_objects = new ArrayList<>();
          for(Integer post_id:posts_ids){                        //converting ids to actual posts objects
              posts_objects.add(DATA.getPostById(post_id));
          }
 
-        Iterator<post> iterator = posts_objects.iterator();
+        Iterator<Post> iterator = posts_objects.iterator();
 
         while (iterator.hasNext()) {                            // using iterators to avoid ConcurrentModificationException
-            post POST = iterator.next();
+            Post POST = iterator.next();
             User post_author = DATA.getUserById(POST.author_id);
 
             if ((!POST.is_public && Objects.requireNonNull(post_author).restricted_users.contains(logged_in_user.id)) //throws null ptr exception if the post object is null
@@ -61,7 +61,7 @@ public class recommendation_system {
     private ArrayList<Integer>get_logged_in_user_friends_posts(){//1-
        ArrayList<Integer>friends_feed = new ArrayList<>();
        for(Integer friend: logged_in_user.friends){
-           for(post p:DATA.posts){
+           for(Post p:DATA.Posts){
                if(p.author_id==friend){
                    friends_feed.add(p.post_id);
                }

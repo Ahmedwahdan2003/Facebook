@@ -16,10 +16,10 @@ public class DATA extends root_Data {
 
     private static void read_users() {
 
-       final String usersFilePath="Text Files/Users.txt";
-       final String friendsFilePath="Text Files/Friends.txt";
-       final String restrictedUsersFilePath="Text Files/restricted_users.txt";
-       final String photosFilePath = "Text Files/Profile_Photo.txt";
+        final String usersFilePath="Text Files/Users.txt";
+        final String friendsFilePath="Text Files/Friends.txt";
+        final String restrictedUsersFilePath="Text Files/restricted_users.txt";
+        final String photosFilePath = "Text Files/Profile_Photo.txt";
         try {
             // Read users
             File usersFile = new File(usersFilePath);
@@ -129,8 +129,8 @@ public class DATA extends root_Data {
                 }
                 String content = contentBuilder.toString().trim();
 
-                post postt = new post(post_id, date, is_public, content, author_id);
-                DATA.posts.add(postt);
+                Post postt = new Post(post_id, date, is_public, content, author_id);
+                DATA.Posts.add(postt);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

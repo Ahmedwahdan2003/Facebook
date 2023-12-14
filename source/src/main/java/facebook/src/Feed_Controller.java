@@ -2,10 +2,7 @@ package facebook.src;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +13,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Feed_Controller {
+public class feed_Controller {
     @FXML
     private BorderPane mainContainer;
 
@@ -29,18 +26,18 @@ public class Feed_Controller {
     //privateArrayList<post>recommended_posts = new ArrayList<>();
 
 
-    private final User logged_in_user_id = new User(DATA.getUserById(1));
-    recommendation_system recommend_posts = new recommendation_system(logged_in_user_id);
-   ArrayList<post>Feed = recommend_posts.get_logged_in_user_feed();
+    private final User logged_in_user = new User(DATA.getUserById(1));
+    recommendation_system recommend_posts = new recommendation_system(logged_in_user);
+   ArrayList<Post>Feed = recommend_posts.get_logged_in_user_feed();
 
     public void initialize() {
         // initialization logic
 
         Feed.sort((post1, post2) -> post2.Date.compareTo(post1.Date));
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        for(post p:Feed){
-            Label postLabel = p.createFixedPost();
-            feedContainer.getChildren().add(postLabel);
+        for(Post p:Feed){
+            PostLayout postLayout = new PostLayout(p.author_id,p.post_id, logged_in_user.id);
+            VBox postVBox = postLayout.setPostData(p);
+            feedContainer.getChildren().add(postVBox);
         }
 
         homeIcon.setImage(homeiconSelected);
@@ -83,17 +80,19 @@ public class Feed_Controller {
 
     }
 
-    public void search_btn_clicked(ActionEvent actionEvent) throws IOException {
+    public void search_btn_clicked(ActionEvent mouseEvent) throws IOException{
         if (searchIcon.getImage().equals(searchiconDefault)) {
             searchIcon.setImage(searchiconSelected);
-           // search_btn.setStyle("-fx-border-color: #1877f2;");
+            Scene_Changer scene_changer = new Scene_Changer();
+            scene_changer.loadAndSetScene(mouseEvent,"Search_For_Friends.fxml");
+            // search_btn.setStyle("-fx-border-color: #1877f2;");
 
         } else {
             searchIcon.setImage(searchiconDefault);
            // search_btn.setStyle("-fx-border-color: black;");
         }
-        Scene_Changer scene_changer = new Scene_Changer();
-        scene_changer.loadAndSetScene(actionEvent, "Search_For_Friends.fxml");
+
+
     }
 
     public void chat_btn_clicked(MouseEvent mouseEvent) {
@@ -111,12 +110,9 @@ public class Feed_Controller {
 
     }
 
-        private Scene scene;
-        private Parent root;
-    public void open_write_post_scene(ActionEvent actionEvent) throws IOException{
+    public void open_write_post_scene(ActionEvent event) throws IOException{
         Scene_Changer scene_changer = new Scene_Changer();
-        scene_changer.loadAndSetScene(actionEvent, "write_post.fxml");
-
+      scene_changer.loadAndSetScene(event,"write_post.fxml");
     //scene_changer.loadAndSetScene("write_post.fxml","New Post!");
     }
 }

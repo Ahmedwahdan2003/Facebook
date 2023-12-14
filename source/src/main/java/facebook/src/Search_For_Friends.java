@@ -2,19 +2,15 @@ package facebook.src;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Search_For_Friends {
     @FXML private TextField textField;
@@ -75,13 +71,12 @@ public class Search_For_Friends {
     private void profile_view(Event event, User user) throws IOException {
         DATA.currentUser = user;
         Scene_Changer scene_changer = new Scene_Changer();
-        scene_changer.loadAndSetScene(event, "User_Profile.fxml");
-
+        scene_changer.loadAndSetScene(event,"User_Profile.fxml");
         User_Profile userProfile = scene_changer.loader.getController();
         userProfile.setInfo(user);
     }
     @FXML private void Back(Event event) throws IOException {
         Scene_Changer scene_changer = new Scene_Changer();
-        scene_changer.loadAndSetScene(event, "feed.fxml");
+        scene_changer.loadAndSetScene(event,"feed.fxml");
     }
 }

@@ -14,7 +14,7 @@ public class Main extends Application {
     public Stage window;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Search_For_Friends.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("feed.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         window = new Stage();
         window.setTitle("FaceBook");
