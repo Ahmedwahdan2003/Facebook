@@ -6,6 +6,9 @@ public class User {
     public final int id;
     public String name;
     public String password;
+    public String email;
+    public String gender;
+    public String birthdate;
     public ArrayList<Integer> friends;
     public ArrayList<Integer> restricted_users;
 

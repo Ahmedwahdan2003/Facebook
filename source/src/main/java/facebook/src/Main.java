@@ -14,6 +14,7 @@ public class Main extends Application {
     public Stage window;
     @Override
     public void start(Stage stage) throws IOException {
+        DATA.currentUser = DATA.users.get(0);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("feed.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         window = new Stage();

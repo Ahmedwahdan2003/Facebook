@@ -1,6 +1,7 @@
 package facebook.src;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Post {
     int post_id;
@@ -10,7 +11,7 @@ public class Post {
     LocalDate Date;
     String content;
     int number_of_likes;
-    //public ArrayList<Integer> tagged_users_ids;
+    public ArrayList<Integer> tagged_users_ids;
 
     Post(int post_id, LocalDate Date, boolean is_public, String content, int author_id){
         this.post_id=post_id;

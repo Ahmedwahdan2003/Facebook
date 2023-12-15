@@ -1,6 +1,7 @@
 package facebook.src;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -80,11 +81,11 @@ public class feed_Controller {
 
     }
 
-    public void search_btn_clicked(ActionEvent mouseEvent) throws IOException{
+    public void search_btn_clicked(Event mouseEvent) throws IOException{
         if (searchIcon.getImage().equals(searchiconDefault)) {
             searchIcon.setImage(searchiconSelected);
             Scene_Changer scene_changer = new Scene_Changer();
-            scene_changer.loadAndSetScene(mouseEvent,"Search_For_Friends.fxml");
+            scene_changer.loadAndSetScene(mouseEvent,"Search_For_User.fxml");
             // search_btn.setStyle("-fx-border-color: #1877f2;");
 
         } else {
