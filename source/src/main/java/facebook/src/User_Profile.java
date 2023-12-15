@@ -62,12 +62,13 @@ public class User_Profile {
         }
     }
     @FXML private void friends(Event event) throws IOException {
-        Friends_View.user_Friends.clear();
-        for(int i : viewedUser.friends){
-            Friends_View.user_Friends.add(DATA.users.get(i - 1));
-        }
         Scene_Changer scene_changer = new Scene_Changer();
         scene_changer.loadAndSetScene(event, "Friends_View.fxml");
+
+        Friends_View friendsView = scene_changer.loader.getController();
+        for(int i : viewedUser.friends){
+            friendsView.user_Friends.add(DATA.users.get(i - 1));
+        }
     }
     @FXML private void restrict(){
         if(restrict_btn.getText().equals("Restricted")){

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Friends_View extends Search_For_User {
     @FXML private TextField text;
     @FXML private GridPane grid;
-    public static ArrayList<User> user_Friends = new ArrayList<>();
+    public ArrayList<User> user_Friends = new ArrayList<>();
 
     @FXML private void search(){
         view_Found(find_user(text.getText(), user_Friends));
