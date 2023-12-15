@@ -35,8 +35,7 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
         DATA.read();
-        System.out.println(DATA.users.getFirst().getEmail());
         launch();
-        //DATA.writeDataToFile();
+        DATA.writeDataToFile();
     }
 }

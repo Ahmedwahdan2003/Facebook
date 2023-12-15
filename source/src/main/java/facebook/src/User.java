@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class User extends Person {
 
 
-
+    public ArrayList<Integer> likedPosts;
     public String password;
     public ArrayList<Integer> friends;
     public ArrayList<Integer> restricted_users;

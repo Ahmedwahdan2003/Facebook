@@ -16,42 +16,52 @@
       </Label>
       <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
          <children>
-            <Label text="New Username: ">
+            <Label prefWidth="170.0" text="New Username:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="newName" />
+            <TextField fx:id="newName" prefWidth="200.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
          <children>
-            <Label text="Current Password: ">
+            <Label prefWidth="170.0" text="New Email:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="currentPass" />
+            <TextField fx:id="newEmail" prefWidth="200.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
+         <children>
+            <Label prefWidth="170.0" text="Current Password:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="currentPass" prefWidth="200.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="80.0">
          <children>
-            <Label text="New Password: ">
+            <Label prefWidth="170.0" text="New Password:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="newPass" />
+            <TextField fx:id="newPass" prefWidth="200.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="80.0">
          <children>
-            <Label text="New Profile Photo: ">
+            <Label prefWidth="170.0" text="New Profile Photo:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="newPhotoPath" />
+            <TextField fx:id="newPhotoPath" prefWidth="176.0" />
             <Button mnemonicParsing="false" onAction="#setImage" text="..." />
          </children>
       </HBox>

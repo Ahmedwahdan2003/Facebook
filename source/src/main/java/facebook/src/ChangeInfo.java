@@ -13,6 +13,7 @@ import java.io.IOException;
 
 public class ChangeInfo {
     @FXML private TextField newName;
+    @FXML private TextField newEmail;
     @FXML private TextField currentPass;
     @FXML private TextField newPass;
     @FXML private TextField newPhotoPath;
@@ -33,14 +34,15 @@ public class ChangeInfo {
         }
     }
     @FXML private void save(Event event) throws IOException {
-        if(newPass.getText().startsWith(" ") || newName.getText().startsWith(" ")){
+        if(newPass.getText().startsWith(" ") || newName.getText().startsWith(" ") || newEmail.getText().startsWith(" ")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Save Failed");
-            alert.setHeaderText("The password and username can't start with space Character");
+            alert.setHeaderText("The Data can't start with space Character");
             alert.showAndWait();
         }
         else if(currentPass.getText().equals(DATA.currentUser.password)){
             if(!(newName.getText().isEmpty())) DATA.currentUser.name = newName.getText();
+            if(!(newEmail.getText().isEmpty())) DATA.currentUser.Email = newEmail.getText();
             if(!(newPass.getText().isEmpty())) DATA.currentUser.password = newPass.getText();
             if(!(newPhotoPath.getText().isEmpty())) DATA.currentUser.profile_photo_path = newPhotoPath.getText();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

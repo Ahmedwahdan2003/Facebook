@@ -4,18 +4,9 @@ import java.util.*;
 
 public class recommendation_system {
 
-
-
-
-    private final User logged_in_user;
-    recommendation_system(User logged_in_user){
-        this.logged_in_user=logged_in_user;
-    }
-
-
-    private final int max_user_id = 15;//number of users in the system
-    private final int max_post_id = 15;// number of posts in the system
-    private final int[][] useritemmatrix = new int[max_user_id + 1][max_post_id + 1];
+    private final int max_user_id = DATA.users.size();//number of users in the system
+    private final int max_post_id = DATA.Posts.size();// number of posts in the system
+    private final int[][] useritemmatrix = new int[max_user_id + 100][max_post_id + 100];
 
 
     //get all feed (frineds posts + recommended posts)
@@ -27,7 +18,7 @@ public class recommendation_system {
 
            ArrayList<Post>user_published_posts = new ArrayList<>(); // make the user also see his posts
             for(Post p:DATA.Posts){
-                if(p.author_id== logged_in_user.id)
+                if(p.author_id== DATA.currentUser.id)
                     user_published_posts.add(p);
             }
         ArrayList<Integer>recommended_posts = getRecommendedPosts();
@@ -47,8 +38,8 @@ public class recommendation_system {
             Post POST = iterator.next();
             User post_author = DATA.getUserById(POST.author_id);
 
-            if ((!POST.is_public && Objects.requireNonNull(post_author).restricted_users.contains(logged_in_user.id)) //throws null ptr exception if the post object is null
-                    || (!POST.is_public && !post_author.friends.contains(logged_in_user.id))) {
+            if ((!POST.is_public && Objects.requireNonNull(post_author).restricted_users.contains(DATA.currentUser.id)) //throws null ptr exception if the post object is null
+                    || (!POST.is_public && !post_author.friends.contains(DATA.currentUser.id))) {
                 //System.out.println("restriction found in post "+ POST.post_id+" logged_in_user_id: "+logged_in_user.id+" author_id: "+ post_author.id);
                 iterator.remove();
             }
@@ -60,7 +51,7 @@ public class recommendation_system {
     // get posts from logged_in_user friends
     private ArrayList<Integer>get_logged_in_user_friends_posts(){//1-
        ArrayList<Integer>friends_feed = new ArrayList<>();
-       for(Integer friend: logged_in_user.friends){
+       for(Integer friend: DATA.currentUser.friends){
            for(Post p:DATA.Posts){
                if(p.author_id==friend){
                    friends_feed.add(p.post_id);
@@ -78,15 +69,15 @@ public class recommendation_system {
 
         // Identify posts already seen by the target user
         for (interactions interaction : DATA.interactionList) {
-            if (interaction.getUser_id() == logged_in_user.id) {
+            if (interaction.getUser_id() == DATA.currentUser.id) {
                 seenPosts.add(interaction.getPost_id());
             }
         }
 
         // applying collabortiveflitering algorithm which calculate the similarity between target user and all other users then recommend posts based on that
         for (int userId = 0; userId < useritemmatrix.length; userId++) {
-            if (userId != logged_in_user.id) {
-                double similarity = calculateCosineSimilarity(logged_in_user.id, userId);
+            if (userId != DATA.currentUser.id) {
+                double similarity = calculateCosineSimilarity(DATA.currentUser.id, userId);
                 if (similarity >= 0.7) { // fair enough similarity
                     for (int postId = 0; postId < useritemmatrix[userId].length; postId++) {
                         if (useritemmatrix[userId][postId] == 1 && !seenPosts.contains(postId)) {

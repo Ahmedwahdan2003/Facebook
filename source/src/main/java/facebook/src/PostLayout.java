@@ -1,7 +1,6 @@
 package facebook.src;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -22,12 +21,9 @@ public class PostLayout extends VBox {
 
      protected int author_id;
      protected int post_id;
-     protected int logged_in_user_id;
-
-    public PostLayout(int author_id,int post_id,int logged_in_user_id) {
+    public PostLayout(int author_id,int post_id) {
         this.author_id=author_id;
         this.post_id=post_id;
-        this.logged_in_user_id=logged_in_user_id;
         initialize();
         setHandlers();
     }
@@ -63,41 +59,36 @@ public class PostLayout extends VBox {
         postLikeBtn.setTextFill(Color.WHITE);
 
     }
-    Post post = DATA.getPostById(post_id);
-    User author = DATA.getUserById(author_id);
     public VBox setPostData(Post p) {
         User author = DATA.getUserById(p.author_id);
         assert author != null;
         postAuthorUsername.setText(author.getName());
 
-        //for (String taggedUser : post.getTaggedUsers()) {
-            Label userLabel = new Label("taggedUser");
-            taggedUsersHBox.getChildren().add(userLabel);
-        //}
+
+        for (int taggedid : p.tagged_users_ids) {
+            String tagedName = DATA.users.get(taggedid - 1).name;
+            Label tagLabel = new Label("@:" + tagedName);
+            taggedUsersHBox.getChildren().add(tagLabel);
+        }
         postContent.setText(p.content);
 
 
         return this; // Return the VBox layout
     }
-    private boolean isLiked=false;
+    private boolean isLiked = false;
     private void setHandlers() {
-        commentPostBtn.setOnAction(new EventHandler<ActionEvent>(){
-
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    handleCommentButtonClick(actionEvent);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+        commentPostBtn.setOnAction(actionEvent -> {
+            try {
+                handleCommentButtonClick(actionEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
-        postLikeBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                handleLikeButtonClick();
-            }
-        });
+        isLiked = DATA.currentUser.likedPosts.contains(post_id);
+        Post currPost= DATA.Posts.get(post_id - 1);
+        if (isLiked) postLikeBtn.setText("Liked (" + Integer.toString(currPost.likesCount).concat(")"));
+        else postLikeBtn.setText("LIKE (" + Integer.toString(currPost.likesCount).concat(")"));
+        postLikeBtn.setOnAction(event -> handleLikeButtonClick());
     }
 
     private void handleCommentButtonClick(ActionEvent event) throws IOException {
@@ -113,7 +104,7 @@ public class PostLayout extends VBox {
         Scene_Changer scene_changer = new Scene_Changer();
         scene_changer.loadAndSetScene(event,"comments.fxml");
         System.out.println(post_id);
-        CommentController commentController = scene_changer.get_loader().getController();
+        CommentController commentController = scene_changer.loader.getController();
         for(Comment comment:DATA.Comments){
             if(comment.getPostId()==post_id){
                 VBox CommentVbox = commentController.createCommentBox(comment);
@@ -123,18 +114,20 @@ public class PostLayout extends VBox {
     }
 
     private void handleLikeButtonClick() {
+        Post currPost= DATA.Posts.get(post_id - 1);
         if (isLiked) {
             // If already liked, change color to grey
             postLikeBtn.setStyle("-fx-background-color: #808080;");
-            postLikeBtn.setText("LIKE");
-            DATA.Remove_interaction(logged_in_user_id,post_id);
+            DATA.Remove_interaction(DATA.currentUser.id,post_id);
+            currPost.likesCount--;
+            postLikeBtn.setText("LIKE (" + Integer.toString(currPost.likesCount).concat(")"));
         } else {
             // If not liked, change color to blue
             postLikeBtn.setStyle("-fx-background-color: #1877f2;");
-            postLikeBtn.setText("UNLIKE");
-            interactions interaction = new interactions(logged_in_user_id,post_id);
+            interactions interaction = new interactions(DATA.currentUser.id,post_id);
             DATA.interactionList.add(interaction);
-
+            currPost.likesCount++;
+            postLikeBtn.setText("Liked (" + Integer.toString(currPost.likesCount).concat(")"));
         }
 
         // Toggle the liked state

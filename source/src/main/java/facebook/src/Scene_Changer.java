@@ -22,8 +22,5 @@ public class Scene_Changer {
         main.window.setScene(scene);
         main.window.show();
     }
-    public FXMLLoader get_loader(){
-        return this.loader;
-    }
 
 }

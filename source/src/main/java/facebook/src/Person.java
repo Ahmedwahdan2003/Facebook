@@ -3,9 +3,9 @@ package facebook.src;
 import java.time.LocalDate;
 
 public class Person {
-    private String name;
-    private String gender;
-    private LocalDate Date;
+    public String name;
+    public String gender;
+    public LocalDate Date;
     public String Email;
 
     public int id;
