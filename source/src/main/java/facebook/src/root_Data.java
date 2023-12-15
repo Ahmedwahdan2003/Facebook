@@ -6,6 +6,8 @@ public abstract class root_Data {
     protected static ArrayList<User> users = new ArrayList<>();
     protected static ArrayList<Post> Posts = new ArrayList<>();
     protected static ArrayList<interactions> interactionList = new ArrayList<>();
+
+    protected static ArrayList<Comment>Comments = new ArrayList<>();
     protected static User currentUser;
 
     protected static void Remove_interaction(int user_id,int post_id){

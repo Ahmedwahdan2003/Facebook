@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="facebook.src.CommentController">
+    <children>
+        <ScrollPane prefHeight="506.0" prefWidth="745.0">
+            <content>
+                <VBox fx:id="commentsContainer" prefHeight="488.0" prefWidth="738.0" spacing="15" />
+            </content>
+        </ScrollPane>
+        <AnchorPane prefHeight="89.0" prefWidth="600.0">
+            <children>
+                <TextField fx:id="commentTextField" layoutX="14.0" layoutY="12.0" prefHeight="43.0" prefWidth="490.0" />
+                <Button layoutX="542.0" layoutY="17.0" mnemonicParsing="false" onAction="#submitComment" prefHeight="34.0" prefWidth="75.0" text="Submit" />
+                <Label fx:id="errorMessageLabel" layoutX="41.0" layoutY="60.0" prefHeight="17.0" prefWidth="386.0" textFill="#ff1c1c" />
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

@@ -23,8 +23,8 @@ public class WritePost {
     private CheckBox privacy_chkbx;
     @FXML
     public void add_new_post(MouseEvent mouseEvent) {
-         boolean ispublic =true;
-         String postcontent;
+        boolean ispublic =true;
+        String postcontent;
         if (post_content.getText().trim().isEmpty()) {
             confirmationlabel.setTextFill(Color.RED);
             confirmationlabel.setText("Error: Please write something in the post.");
@@ -33,12 +33,12 @@ public class WritePost {
             confirmationlabel.setText("post created successfully!");
             postcontent=post_content.getText();
             // Example: Print the content to the console
-           // System.out.println("Post Content: " + post_content.getText());
+            // System.out.println("Post Content: " + post_content.getText());
             if(privacy_chkbx.isSelected()){
                 //System.out.println("Post is private");
                 ispublic=false;
             }else{
-               // System.out.println("Post is public");
+                // System.out.println("Post is public");
             }
             LocalDate currentDate = LocalDate.now();
 
@@ -57,6 +57,6 @@ public class WritePost {
 
     public void new_post_Back_btn(MouseEvent mouseEvent) throws IOException {
         Scene_Changer scene_changer = new Scene_Changer();
-       scene_changer.loadAndSetScene(mouseEvent,"feed.fxml");
+        scene_changer.loadAndSetScene(mouseEvent,"feed.fxml");
     }
 }

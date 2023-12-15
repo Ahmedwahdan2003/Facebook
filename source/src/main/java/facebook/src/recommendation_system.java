@@ -13,8 +13,8 @@ public class recommendation_system {
     }
 
 
-    private final int max_user_id = 10;//number of users in the system
-    private final int max_post_id = 10;// number of posts in the system
+    private final int max_user_id = 15;//number of users in the system
+    private final int max_post_id = 15;// number of posts in the system
     private final int[][] useritemmatrix = new int[max_user_id + 1][max_post_id + 1];
 
 
@@ -49,7 +49,7 @@ public class recommendation_system {
 
             if ((!POST.is_public && Objects.requireNonNull(post_author).restricted_users.contains(logged_in_user.id)) //throws null ptr exception if the post object is null
                     || (!POST.is_public && !post_author.friends.contains(logged_in_user.id))) {
-                System.out.println("restriction found in post "+ POST.post_id+" logged_in_user_id: "+logged_in_user.id+" author_id: "+ post_author.id);
+                //System.out.println("restriction found in post "+ POST.post_id+" logged_in_user_id: "+logged_in_user.id+" author_id: "+ post_author.id);
                 iterator.remove();
             }
         }

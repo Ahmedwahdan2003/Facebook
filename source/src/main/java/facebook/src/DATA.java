@@ -4,6 +4,7 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class DATA extends root_Data {
@@ -12,6 +13,21 @@ public class DATA extends root_Data {
         read_users();
         readPosts();
         read_interactions();
+    }
+    public static void writeDataToFile() {
+        clearFile("Text Files/Users.txt");
+        clearFile("Text Files/Friends.txt");
+        clearFile("Text Files/restricted_users.txt");
+        clearFile("Text Files/Profile_Photo.txt");
+        clearFile("Text Files/posts.txt");
+        clearFile("Text Files/interactions.txt");
+
+        writeUsersToFile();
+        writeFriendsToFile();
+        writeRestrictedUsersToFile();
+        writePhotosToFile();
+        writePostsToFile();
+        writeInteractionsToFile();
     }
 
     private static void read_users() {
@@ -27,13 +43,16 @@ public class DATA extends root_Data {
 
             while (usersScanner.hasNextLine()) {
                 String line = usersScanner.nextLine();
-                String[] userData = line.split(" ");
+                String[] userData = line.split(":");
 
                 int id = Integer.parseInt(userData[0]);
-                String name = userData[1].replace('_', ' ');
+                String name = userData[1];
                 String password = userData[2];
+                String email = userData[3];
+                String gender = userData[4];
+                LocalDate Date = LocalDate.parse(userData[5]);
 
-                User user = new User(id, name, password, new ArrayList<>(), new ArrayList<>());
+                User user = new User(id,name,email,gender,Date,password,new ArrayList<>(),new ArrayList<>());
                 DATA.users.add(user);
             }
 
@@ -45,7 +64,7 @@ public class DATA extends root_Data {
 
             while (friendsScanner.hasNextLine()) {
                 String line = friendsScanner.nextLine();
-                String[] friendData = line.split(":");
+                String[] friendData = line.split(" ");
                 int userId = Integer.parseInt(friendData[0]);
 
                 if (userId <= DATA.users.size()) {
@@ -140,7 +159,7 @@ public class DATA extends root_Data {
     }
     private static void read_interactions() {
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("Text Files/Friends.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Text Files/interactions.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -152,4 +171,87 @@ public class DATA extends root_Data {
             exception.getLocalizedMessage();
         }
     }
+
+
+    private static void writeUsersToFile() {
+        String usersFilePath = "Text Files/Users.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(usersFilePath))) {
+            for (User user : users) {
+                writer.write(user.id + " " + user.getName().replace(' ', '_') + " " + user.password + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void writeFriendsToFile() {
+        String friendsFilePath = "Text Files/Friends.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(friendsFilePath))) {
+            for (User user : users) {
+                int userId = user.id;
+                ArrayList<Integer> friends = user.friends;
+                writer.write(userId + ":" + String.join(" ", friends.stream().map(String::valueOf).toArray(String[]::new)) + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void writeRestrictedUsersToFile() {
+        String restrictedUsersFilePath = "Text Files/restricted_users.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(restrictedUsersFilePath))) {
+            for (User user : users) {
+                int userId = user.id;
+                ArrayList<Integer> restrictedUsers = user.restricted_users;
+                writer.write(userId + ":" + String.join(" ", restrictedUsers.stream().map(String::valueOf).toArray(String[]::new)) + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void writePhotosToFile() {
+        String photosFilePath = "Text Files/Profile_Photo.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(photosFilePath))) {
+            for (User user : users) {
+                int userId = user.id;
+                String profilePhotoPath = user.profile_photo_path;
+                writer.write(userId + " " + profilePhotoPath + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void writePostsToFile() {
+        String postsFilePath = "Text Files/posts.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(postsFilePath))) {
+            for (Post post : Posts) {
+                writer.write(post.post_id + " " + post.is_public + " " + post.author_id + " " +
+                        post.Date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + post.content + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private static void writeInteractionsToFile() {
+        String interactionsFilePath = "Text Files/interactions.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(interactionsFilePath))) {
+            for (interactions interaction : interactionList) {
+                writer.write(interaction.getUser_id() + "," + interaction.getPost_id() + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private static void clearFile(String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+
+            writer.write("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

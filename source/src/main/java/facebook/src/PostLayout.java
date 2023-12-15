@@ -10,17 +10,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+
 public class PostLayout extends VBox {
 
-    private Label postAuthorUsername;
-    private HBox taggedUsersHBox;
-    private TextArea postContent;
-    private Button postLikeBtn;
-    private Button commentPostBtn;
+    protected Label postAuthorUsername;
+    protected HBox taggedUsersHBox;
+    protected TextArea postContent;
+    protected Button postLikeBtn;
+    protected Button commentPostBtn;
 
-     private int author_id;
-     private int post_id;
-     private int logged_in_user_id;
+     protected int author_id;
+     protected int post_id;
+     protected int logged_in_user_id;
 
     public PostLayout(int author_id,int post_id,int logged_in_user_id) {
         this.author_id=author_id;
@@ -30,7 +32,7 @@ public class PostLayout extends VBox {
         setHandlers();
     }
 
-    private void initialize() {
+    protected void initialize() {
         postAuthorUsername = new Label();
         taggedUsersHBox = new HBox();
         postContent = new TextArea();
@@ -66,7 +68,7 @@ public class PostLayout extends VBox {
     public VBox setPostData(Post p) {
         User author = DATA.getUserById(p.author_id);
         assert author != null;
-        postAuthorUsername.setText(author.name);
+        postAuthorUsername.setText(author.getName());
 
         //for (String taggedUser : post.getTaggedUsers()) {
             Label userLabel = new Label("taggedUser");
@@ -79,12 +81,45 @@ public class PostLayout extends VBox {
     }
     private boolean isLiked=false;
     private void setHandlers() {
+        commentPostBtn.setOnAction(new EventHandler<ActionEvent>(){
+
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    handleCommentButtonClick(actionEvent);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
         postLikeBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 handleLikeButtonClick();
             }
         });
+    }
+
+    private void handleCommentButtonClick(ActionEvent event) throws IOException {
+        Comment comment1 = new Comment("Comment1", 12);
+        Comment comment2 = new Comment("Comment2", 12);
+        Comment comment3 = new Comment("Comment3", 12);
+        Comment comment4 = new Comment("Comment4", 12);
+        Comment comment5 = new Comment("Comment5", 12);
+        DATA.Comments.add(comment1);
+        DATA.Comments.add(comment2);
+        DATA.Comments.add(comment3);
+        DATA.Comments.add(comment4);
+        Scene_Changer scene_changer = new Scene_Changer();
+        scene_changer.loadAndSetScene(event,"comments.fxml");
+        System.out.println(post_id);
+        CommentController commentController = scene_changer.get_loader().getController();
+        for(Comment comment:DATA.Comments){
+            if(comment.getPostId()==post_id){
+                VBox CommentVbox = commentController.createCommentBox(comment);
+                commentController.commentsContainer.getChildren().add(CommentVbox);
+            }
+        }
     }
 
     private void handleLikeButtonClick() {

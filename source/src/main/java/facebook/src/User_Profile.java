@@ -34,7 +34,7 @@ public class User_Profile {
     public void setInfo(User user){
         imageView.setImage(new Image(user.profile_photo_path));
         id.setText("User ID: ".concat(Integer.toString(user.id)));
-        username.setText("UserName: ".concat(user.name));
+        username.setText("UserName: ".concat(user.getName()));
         friends_num.setText("Number of Friends: ".concat(Integer.toString(user.friends.size())));
     }
 }

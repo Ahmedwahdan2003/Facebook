@@ -1,5 +1,6 @@
 package facebook.src;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,9 +27,12 @@ public class feed_Controller {
     //privateArrayList<post>recommended_posts = new ArrayList<>();
 
 
+
+
     private final User logged_in_user = new User(DATA.getUserById(1));
     recommendation_system recommend_posts = new recommendation_system(logged_in_user);
    ArrayList<Post>Feed = recommend_posts.get_logged_in_user_feed();
+
 
     public void initialize() {
         // initialization logic

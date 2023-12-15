@@ -31,7 +31,7 @@ public class Search_For_Friends {
             Label user_text = new Label("UserName: ");
             gridPane.add(user_text, 0, ++i);
 
-            Label userName = new Label(user.name);
+            Label userName = new Label(user.getName());
             gridPane.add(userName, 1, i);
 
             Label id_text = new Label("ID: ");
@@ -58,7 +58,7 @@ public class Search_For_Friends {
         HashMap<Integer, ArrayList<User>> names = new HashMap<>();
         Integer i;
         for(User x : DATA.users){
-            i = x.name.toLowerCase().indexOf(name);
+            i = x.getName().toLowerCase().indexOf(name);
             if(i != -1){
                 ArrayList<User> p = new ArrayList<>();
                 if(names.get(i) != null) p = names.get(i);
