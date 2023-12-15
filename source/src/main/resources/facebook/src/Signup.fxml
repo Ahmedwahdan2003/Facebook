@@ -15,7 +15,7 @@
     <left>
         <ImageView blendMode="DARKEN" fitHeight="306.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
             <image>
-                <Image  url="@.." />
+                <Image url="@../../images/facebook_logo.png" />
             </image>
         </ImageView>
     </left>

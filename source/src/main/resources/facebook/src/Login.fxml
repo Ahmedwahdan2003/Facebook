@@ -42,7 +42,7 @@
             <children>
                 <ImageView fx:id="img" fitHeight="300.0" fitWidth="204.0" layoutY="51.0" pickOnBounds="true"
                            preserveRatio="true">
-                    <Image url="@.."/>
+                    <Image url="@../../images/facebook_logo.png" />
                 </ImageView>
             </children>
         </AnchorPane>

@@ -6,11 +6,16 @@ public class Person {
     private String name;
     private String gender;
     private LocalDate Date;
+    public String Email;
 
-    public Person(String name, String gender, LocalDate date) {
+    public int id;
+
+    public Person(int id,String name,String email, String gender, LocalDate date) {
         this.name = name;
         this.gender = gender;
         Date = date;
+        this.id=id;
+        this.Email=email;
     }
 
     public String getGender() {

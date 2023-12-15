@@ -5,25 +5,32 @@ import java.util.ArrayList;
 
 public class User extends Person {
 
-    public int id;
 
-    public String Email;
+
+    public String password;
+    public ArrayList<Integer> friends;
+    public ArrayList<Integer> restricted_users;
+
+    public String profile_photo_path;
 
     public User(int id, String name, String password, String email, String gender, LocalDate date) {
 
-        super(name, gender, date);
-        this.id=id;
+        super(id,name,email,gender,date);
         this.setPassword(password);
-        this.setEmail(email);
     }
 
-    public <E> User(int id, String name,String email,String gender,LocalDate Date, String password, ArrayList<Integer> friends, ArrayList<Integer> restricted_users) {
-        super(name,gender,Date);
-        this.setPassword(password);
-        this.id=id;
-        this.friends=friends;
+    public User(int id, String name,String email,String gender,LocalDate date, String password, ArrayList<Integer> friends, ArrayList<Integer> restricted_users) {
+        super(id,name,email,gender,date);
+        this.password = password;
+        this.friends = friends;
         this.restricted_users=restricted_users;
-
+    }
+    public User(User user) {
+        super(user.id,user.getName(),user.getEmail(),user.getGender(),user.getDate());
+        this.password = user.password;
+        this.friends = user.friends;
+        this.profile_photo_path= user.profile_photo_path;;
+        this.restricted_users=user.restricted_users;
     }
 
 
@@ -71,28 +78,6 @@ public class User extends Person {
         this.profile_photo_path = profile_photo_path;
     }
 
-    public String password;
-    public ArrayList<Integer> friends;
-    public ArrayList<Integer> restricted_users;
 
-    public String profile_photo_path;
-
-    public User(int id, String name, String password, ArrayList<Integer> friends, ArrayList<Integer> restricted_users, String gender, LocalDate Date,String profile_photo_path) {
-        super(name,gender,Date);
-        this.id = id;
-        this.password = password;
-        this.friends = friends;
-        this.restricted_users=restricted_users;
-        this.profile_photo_path=profile_photo_path;
-    }
-    public User(User user) {
-        super(user.getName(),user.getGender(),user.getDate());
-        this.id = user.id;
-        this.password = user.password;
-        this.friends = user.friends;
-        this.profile_photo_path= user.profile_photo_path;;
-        this.restricted_users=user.restricted_users;
-
-    }
 
 }

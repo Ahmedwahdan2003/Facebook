@@ -1,9 +1,13 @@
 package facebook.src;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,23 +44,49 @@ public class DATA extends root_Data {
             // Read users
             File usersFile = new File(usersFilePath);
             Scanner usersScanner = new Scanner(usersFile);
+            BufferedReader reader = Files.newBufferedReader(Paths.get(usersFilePath), StandardCharsets.UTF_8);
+            {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(" ");
+                        User user;
+                    if (parts.length == 6) {
+                        int id = Integer.parseInt(parts[0]);
+                        String email = parts[1];
+                        String name = parts[2];
+                        String password = parts[3];
+                        String gender = parts[4];
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        LocalDate date = LocalDate.parse(parts[5], formatter);
+                        user = new User(id, name, email, gender, date, password, new ArrayList<Integer>(), new ArrayList<Integer>());
+                        System.out.println(user.Email);
+                        DATA.users.add(user);
+                    }
+                }
+            }
 
-            while (usersScanner.hasNextLine()) {
+
+            /*while (usersScanner.hasNextLine()) {
                 String line = usersScanner.nextLine();
-                String[] userData = line.split(":");
+                String[] userData = line.split(" ");
 
                 int id = Integer.parseInt(userData[0]);
-                String name = userData[1];
-                String password = userData[2];
-                String email = userData[3];
+                String email = userData[1];
+                String name = userData[2];
+                String password = userData[3];
                 String gender = userData[4];
-                LocalDate Date = LocalDate.parse(userData[5]);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate date = LocalDate.parse(userData[5], formatter);
 
-                User user = new User(id,name,email,gender,Date,password,new ArrayList<>(),new ArrayList<>());
+                User user = new User(id,name,email,gender,date,password,new ArrayList<Integer>(),new ArrayList<Integer>());
                 DATA.users.add(user);
             }
 
             usersScanner.close();
+            */
+
+
+
 
             // Read friends
             File friendsFile = new File(friendsFilePath);
@@ -64,7 +94,7 @@ public class DATA extends root_Data {
 
             while (friendsScanner.hasNextLine()) {
                 String line = friendsScanner.nextLine();
-                String[] friendData = line.split(" ");
+                String[] friendData = line.split(":");
                 int userId = Integer.parseInt(friendData[0]);
 
                 if (userId <= DATA.users.size()) {
@@ -121,6 +151,8 @@ public class DATA extends root_Data {
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
 

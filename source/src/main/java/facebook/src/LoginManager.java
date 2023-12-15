@@ -1,11 +1,12 @@
 package facebook.src;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginManager {
-    private List<User> accounts;
+    private ArrayList<User> accounts;
 
-    public LoginManager(List<User> accounts) {
+    public LoginManager(ArrayList<User> accounts) {
         this.accounts = accounts;
     }
 
@@ -16,6 +17,7 @@ public class LoginManager {
 
         for (User account : accounts) {
             if (isMatchingAccount(account, enteredEmail, enteredPassword)) {
+                DATA.currentUser=account;
                 return true;
             }
         }

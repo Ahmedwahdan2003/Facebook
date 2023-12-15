@@ -2,6 +2,7 @@ package facebook.src;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -29,13 +30,14 @@ public class feed_Controller {
 
 
 
-    private final User logged_in_user = new User(DATA.getUserById(1));
+    private final User logged_in_user = DATA.currentUser;
     recommendation_system recommend_posts = new recommendation_system(logged_in_user);
    ArrayList<Post>Feed = recommend_posts.get_logged_in_user_feed();
 
 
     public void initialize() {
         // initialization logic
+
 
         Feed.sort((post1, post2) -> post2.Date.compareTo(post1.Date));
         for(Post p:Feed){
@@ -84,7 +86,7 @@ public class feed_Controller {
 
     }
 
-    public void search_btn_clicked(ActionEvent mouseEvent) throws IOException{
+    public void search_btn_clicked(Event mouseEvent) throws IOException{
         if (searchIcon.getImage().equals(searchiconDefault)) {
             searchIcon.setImage(searchiconSelected);
             Scene_Changer scene_changer = new Scene_Changer();

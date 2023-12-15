@@ -1,5 +1,5 @@
-1 Ahmed_wahdan 123 aeg.com male 2022-02-01
-2 Mohamed_hussein 123 a@eg.com male 2022-02-01
-3 Mohamed_Mahmoud 123 a@eg.com male 2022-02-01
-4 Mona_Usama 131 a@eg.com male 2022-02-01
-5 Salma_Mahmoud 123 a@eg.com male 2022-02-01
+1 a@gmail.com Ahmed_wahdan 123 male 2022-02-01
+2 a@gmail.com Mohamed_hussein 123 male 2022-02-01
+3 a@gmail.com Mohamed_Mahmoud 123 male 2022-02-01
+4 a@gmail.com Mona_Usama 131 male 2022-02-01
+5 a@gmail.com Salma_Mahmoud 123 male 2022-02-01

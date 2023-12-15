@@ -61,6 +61,7 @@ public class Login {
 
             if (loginSuccessful) {
                 wrong.setText("Success!");
+
                 Scene_Changer scene_changer = new Scene_Changer();
                 scene_changer.loadAndSetScene(event,"feed.fxml");
             } else {

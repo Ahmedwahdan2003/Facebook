@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="facebook.src.ChangeInfo">
+   <children>
+      <Label prefHeight="100.0" text="Change Info Page">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
+         <children>
+            <Label text="New Username: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="newName" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0">
+         <children>
+            <Label text="Current Password: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="currentPass" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="80.0">
+         <children>
+            <Label text="New Password: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="newPass" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="80.0">
+         <children>
+            <Label text="New Profile Photo: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="newPhotoPath" />
+            <Button mnemonicParsing="false" onAction="#setImage" text="..." />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="80.0" spacing="50.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#discard" prefHeight="30.0" prefWidth="150.0" text="Discard Changes" />
+            <Button mnemonicParsing="false" onAction="#save" prefHeight="30.0" prefWidth="150.0" text="Save Changes" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
