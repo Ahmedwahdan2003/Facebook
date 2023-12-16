@@ -30,25 +30,18 @@ public class Signup {
     @FXML
     private Label noinfo;
 
-
-    public void usercreateacc(ActionEvent event) throws IOException {
-
-
-        if (name.getText().isEmpty() || password.getText().isEmpty() || gender.getText().isEmpty() || date.getValue() == null || email.getText().isEmpty() || !isValidEmail(email.getText())) {
-            noinfo.setText("Please enter valid data, including a valid email address.");
-        } else {
+    public void usercreateacc(ActionEvent event) throws FacebookExceptions, IOException {
+        if (FacebookExceptions.WrongInput(name.getText(), password.getText(), gender.getText(), date.getValue(), email.getText())){
             noinfo.setText("Account created successfully!");
             int id = DATA.users.size()+1;
             User user = new User(id, name.getText(), email.getText(), gender.getText(), date.getValue(), password.getText(), new ArrayList<Integer>(), new ArrayList<Integer>());
+            if(user.gender.equalsIgnoreCase("female")) user.gender = "Female";
+            else user.gender = "Male";
             DATA.users.add(user);
             Scene_Changer scene_changer = new Scene_Changer();
             scene_changer.loadAndSetScene(event, "Login.fxml");
         }
     }
 
-
-    private boolean isValidEmail(String email) {
-        return email.contains("@");
-    }
 }
 

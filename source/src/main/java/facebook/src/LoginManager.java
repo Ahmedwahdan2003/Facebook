@@ -30,7 +30,7 @@ public class LoginManager {
 
     private boolean isMatchingAccount(User account, String enteredEmail, String enteredPassword) {
 
-        return account.getEmail().equals(enteredEmail) && checkPassword(enteredPassword, account.getPassword());
+        return account.getEmail().equalsIgnoreCase(enteredEmail) && checkPassword(enteredPassword, account.getPassword());
     }
 
     private boolean checkPassword(String enteredPassword, String storedPassword) {

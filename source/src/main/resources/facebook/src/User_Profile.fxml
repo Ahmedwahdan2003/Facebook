@@ -28,7 +28,7 @@
                         <Insets top="6.0" />
                      </VBox.margin>
                      <image>
-                        <Image url="file:/E:/Pictures/Download/photo_6016892085686353127_y.jpg" />
+                        <Image url="file:/D:/projects/Java/Facebook/source/src/main/resources/images/profile.png" />
                      </image>
                   </ImageView>
                </children>

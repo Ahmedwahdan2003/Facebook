@@ -13,11 +13,11 @@ public class Friends_View extends Search_For_User {
     @FXML private GridPane grid;
     public ArrayList<User> user_Friends = new ArrayList<>();
 
-    @FXML private void search(){
+    @FXML private void search() throws FacebookExceptions {
         view_Found(find_user(text.getText(), user_Friends));
     }
 
-    @Override @FXML protected void Back(Event event) throws IOException {
+    @Override @FXML protected void Back(Event event) throws IOException, FacebookExceptions {
         profile_view(event, User_Profile.viewedUser);
     }
 }

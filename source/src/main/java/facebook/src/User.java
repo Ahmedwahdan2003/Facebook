@@ -11,7 +11,7 @@ public class User extends Person {
     public ArrayList<Integer> friends;
     public ArrayList<Integer> restricted_users;
 
-    public String profile_photo_path;
+    public String profile_photo_path = "";
 
     public User(int id, String name, String password, String email, String gender, LocalDate date) {
 

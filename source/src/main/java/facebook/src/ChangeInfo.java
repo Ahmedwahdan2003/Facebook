@@ -5,9 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -17,23 +15,23 @@ public class ChangeInfo {
     @FXML private TextField currentPass;
     @FXML private TextField newPass;
     @FXML private TextField newPhotoPath;
-    @FXML  private void setImage() {
+    @FXML  private void setImage() throws FacebookExceptions{
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Upload File Path");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("IMAGE FILES", "*.jpg", "*.png", "*.gif")
+                new FileChooser.ExtensionFilter("IMAGE FILES", "*.jpg", "*.png", "*.gif", ".jpeg")
         );
 
         Main main = new Main();
         File file = fileChooser.showOpenDialog(main.window);
 
-        if (file != null) {
+        if (file.exists()) {
             newPhotoPath.setText("file:/".concat(file.getPath().replace(" ", "%20").replace("\\", "/")));
         } else  {
-            System.out.println("error"); // or something else
+            throw new FacebookExceptions();
         }
     }
-    @FXML private void save(Event event) throws IOException {
+    @FXML private void save(Event event) throws IOException, FacebookExceptions {
         if(newPass.getText().startsWith(" ") || newName.getText().startsWith(" ") || newEmail.getText().startsWith(" ")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Save Failed");
@@ -63,7 +61,7 @@ public class ChangeInfo {
             alert.showAndWait();
         }
     }
-    @FXML private void discard(Event event) throws IOException {
+    @FXML private void discard(Event event) throws IOException, FacebookExceptions {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Discard Changes");
         alert.setHeaderText("All changes won't be saved!");

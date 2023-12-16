@@ -33,7 +33,7 @@ public class Main extends Application {
             window.close();
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FacebookExceptions {
         DATA.read();
         launch();
         DATA.writeDataToFile();

@@ -7,6 +7,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -18,21 +21,26 @@ public class Search_For_User {
     public Search_For_User() {
         rowConstraints.setMinHeight(70);
     }
-    public void view_Found(HashMap<Integer, ArrayList<User>> users_sorted){
+    public void view_Found(HashMap<Integer, ArrayList<User>> users_sorted) throws FacebookExceptions {
         grid.getChildren().clear();
 
         int i = -1;
         for(ArrayList<User> x : users_sorted.values()) {
             if (i >= 25) break;
             for (User user : x) {
-                ImageView profile_photo = new ImageView(new Image(user.profile_photo_path, 50, 50, false, false));
-                grid.add(profile_photo, 0, ++i);
+                File f = new File(user.profile_photo_path.substring(6));
+                if(f.exists()){
+                    ImageView profile_photo = new ImageView(new Image(user.profile_photo_path, 50, 50, false, false));
+                    grid.add(profile_photo, 0, ++i);
+                } else {
+                    throw new FacebookExceptions(user.profile_photo_path);
+                }
 
                 Label userName = new Label(user.name);
                 userName.setWrapText(true);
                 grid.add(userName, 1, i);
 
-                Label userEmail = new Label("Email: ".concat("user.email"));
+                Label userEmail = new Label("Email: ".concat(user.Email));
                 userEmail.setWrapText(true);
                 grid.add(userEmail, 2, i);
 
@@ -46,7 +54,7 @@ public class Search_For_User {
                 profile_button.setOnAction(event -> {
                     try {
                         profile_view(event, user);
-                    } catch (IOException e) {
+                    } catch (IOException | FacebookExceptions e) {
                         throw new RuntimeException(e);
                     }
                 });
@@ -56,7 +64,7 @@ public class Search_For_User {
             }
         }
     }
-    @FXML private void search(){
+    @FXML private void search() throws FacebookExceptions {
         view_Found(find_user(textField.getText(), DATA.users));
     }
     protected HashMap<Integer, ArrayList<User>> find_user(String name, ArrayList<User> users){
@@ -74,14 +82,14 @@ public class Search_For_User {
         }
         return names;
     }
-    protected void profile_view(Event event, User user) throws IOException {
+    protected void profile_view(Event event, User user) throws IOException, FacebookExceptions {
         Scene_Changer scene_changer = new Scene_Changer();
         scene_changer.loadAndSetScene(event, "User_Profile.fxml");
 
         User_Profile userProfile = scene_changer.loader.getController();
         userProfile.setInfo(user);
     }
-    @FXML protected void Back(Event event) throws IOException {
+    @FXML protected void Back(Event event) throws IOException, FacebookExceptions {
         Scene_Changer scene_changer = new Scene_Changer();
         scene_changer.loadAndSetScene(event, "feed.fxml");
     }

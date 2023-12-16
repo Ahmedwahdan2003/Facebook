@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.io.File;
 import java.io.IOException;
 
 public class User_Profile {
@@ -22,7 +24,7 @@ public class User_Profile {
     @FXML private Button restrict_btn;
     @FXML private Button friends_btn;
     public static User viewedUser;
-    public void setInfo(User user){
+    public void setInfo(User user) throws FacebookExceptions {
         viewedUser = user;
         if(user.id != DATA.currentUser.id) change.setVisible(false);
         else{
@@ -39,7 +41,12 @@ public class User_Profile {
             friends_btn.setVisible(false);
         }
         else friends_num.setText("Number of Friends: ".concat(Integer.toString(user.friends.size())));
-        imageView.setImage(new Image(user.profile_photo_path));
+        File f = new File(user.profile_photo_path.substring(6));
+        if(f.exists()){
+            imageView.setImage(new Image(user.profile_photo_path));
+        } else {
+            throw new FacebookExceptions(user.profile_photo_path);
+        }
         if (DATA.currentUser.friends.contains(user.id)){
             add_btn.setText("Friend");
         }

@@ -7,39 +7,68 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class DATA extends root_Data {
 
-    public static void read(){
-        read_users();
-        readPosts();
-        read_interactions();
-    }
-    public static void writeDataToFile() {
-        clearFile("Text Files/Users.txt");
-        clearFile("Text Files/Friends.txt");
-        clearFile("Text Files/restricted_users.txt");
-        clearFile("Text Files/Profile_Photo.txt");
-        clearFile("Text Files/posts.txt");
-        clearFile("Text Files/interactions.txt");
+    static final String usersFilePath="Text Files/Users.txt";
+    static final String friendsFilePath="Text Files/Friends.txt";
+    static final String restrictedUsersFilePath="Text Files/restricted_users.txt";
+    static final String photosFilePath = "Text Files/Profile_Photo.txt";
+    static final String postsFilePath = "Text Files/posts.txt";
+    static final String interactionsFilePath = "Text Files/interactions.txt";
 
-        writeUsersToFile();
-        writeFriendsToFile();
-        writeRestrictedUsersToFile();
-        writePhotosToFile();
-        writePostsToFile();
-        writeInteractionsToFile();
+    public static void read() throws FacebookExceptions {
+        if(!(new File(usersFilePath).exists())){
+            throw new FacebookExceptions(usersFilePath);
+        } else if (!(new File(friendsFilePath).exists())) {
+            throw new FacebookExceptions(friendsFilePath);
+        } else if (!(new File(restrictedUsersFilePath).exists())) {
+            throw new FacebookExceptions(restrictedUsersFilePath);
+        } else if (!(new File(photosFilePath).exists())) {
+            throw new FacebookExceptions(photosFilePath);
+        } else if (!(new File(postsFilePath).exists())) {
+            throw new FacebookExceptions(postsFilePath);
+        } else if (!(new File(interactionsFilePath).exists())) {
+            throw new FacebookExceptions(interactionsFilePath);
+        } else {
+            read_users();
+            readPosts();
+            read_interactions();
+        }
+    }
+    public static void writeDataToFile() throws FacebookExceptions {
+        if(!(new File(usersFilePath).exists())){
+            throw new FacebookExceptions(usersFilePath);
+        } else if (!(new File(friendsFilePath).exists())) {
+            throw new FacebookExceptions(friendsFilePath);
+        } else if (!(new File(restrictedUsersFilePath).exists())) {
+            throw new FacebookExceptions(restrictedUsersFilePath);
+        } else if (!(new File(photosFilePath).exists())) {
+            throw new FacebookExceptions(photosFilePath);
+        } else if (!(new File(postsFilePath).exists())) {
+            throw new FacebookExceptions(postsFilePath);
+        } else if (!(new File(interactionsFilePath).exists())) {
+            throw new FacebookExceptions(interactionsFilePath);
+        } else {
+            clearFile("Text Files/Users.txt");
+            clearFile("Text Files/Friends.txt");
+            clearFile("Text Files/restricted_users.txt");
+            clearFile("Text Files/Profile_Photo.txt");
+            clearFile("Text Files/posts.txt");
+            clearFile("Text Files/interactions.txt");
+
+            writeUsersToFile();
+            writeFriendsToFile();
+            writeRestrictedUsersToFile();
+            writePhotosToFile();
+            writePostsToFile();
+            writeInteractionsToFile();
+        }
     }
 
     private static void read_users() {
-
-        final String usersFilePath="Text Files/Users.txt";
-        final String friendsFilePath="Text Files/Friends.txt";
-        final String restrictedUsersFilePath="Text Files/restricted_users.txt";
-        final String photosFilePath = "Text Files/Profile_Photo.txt";
         try {
             // Read users
             BufferedReader reader = Files.newBufferedReader(Paths.get(usersFilePath), StandardCharsets.UTF_8);
@@ -58,6 +87,7 @@ public class DATA extends root_Data {
                         LocalDate date = LocalDate.parse(parts[5], formatter);
                         user = new User(id, name, email, gender, date, password, new ArrayList<>(), new ArrayList<>());
                         user.likedPosts = new ArrayList<>();
+                        user.profile_photo_path = "file:/D:/projects/Java/Facebook/source/src/main/resources/images/profile.png";
                         DATA.users.add(user);
                     }
                 }
@@ -136,9 +166,7 @@ public class DATA extends root_Data {
 
     }
     private static void readPosts() {
-
-        String filePath = "Text Files/posts.txt";
-        try (Scanner scanner = new Scanner(new File(filePath))) {
+        try (Scanner scanner = new Scanner(new File(postsFilePath))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split("\\s+");
@@ -192,7 +220,6 @@ public class DATA extends root_Data {
 
 
     private static void writeUsersToFile() {
-        String usersFilePath = "Text Files/Users.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(usersFilePath))) {
             for (User user : users) {
                 writer.write(user.id + " " + user.Email + " " + user.getName().replace(' ', '_') + " " + user.password + " " + user.gender + " " + user.Date.toString() + "\n");
@@ -203,7 +230,6 @@ public class DATA extends root_Data {
     }
 
     private static void writeFriendsToFile() {
-        String friendsFilePath = "Text Files/Friends.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(friendsFilePath))) {
             for (User user : users) {
                 int userId = user.id;
@@ -216,7 +242,6 @@ public class DATA extends root_Data {
     }
 
     private static void writeRestrictedUsersToFile() {
-        String restrictedUsersFilePath = "Text Files/restricted_users.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(restrictedUsersFilePath))) {
             for (User user : users) {
                 writer.write(user.id + ":" + String.join(" ", user.restricted_users.stream().map(String::valueOf).toArray(String[]::new)) + "\n");
@@ -227,7 +252,6 @@ public class DATA extends root_Data {
     }
 
     private static void writePhotosToFile() {
-        String photosFilePath = "Text Files/Profile_Photo.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(photosFilePath))) {
             for (User user : users) {
                 int userId = user.id;
@@ -240,7 +264,6 @@ public class DATA extends root_Data {
     }
 
     private static void writePostsToFile() {
-        String postsFilePath = "Text Files/posts.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(postsFilePath))) {
             for (Post post : Posts) {
                 if(!post.tagged_users_ids.isEmpty()) {
@@ -258,7 +281,6 @@ public class DATA extends root_Data {
         }
     }
     private static void writeInteractionsToFile() {
-        String interactionsFilePath = "Text Files/interactions.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(interactionsFilePath))) {
             for (interactions interaction : interactionList) {
                 writer.write(interaction.getUser_id() + "," + interaction.getPost_id() + "\n");
