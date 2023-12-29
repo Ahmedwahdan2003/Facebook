@@ -2,6 +2,10 @@ package facebook.src;
 
 import java.util.*;
 
+/**
+ * The recommendation_system class provides functionality for generating the logged-in user's feed,
+ * including their own posts, posts from friends, and recommended posts using collaborative filtering.
+ */
 public class recommendation_system {
 
     private final int max_user_id = DATA.users.size();//number of users in the system
@@ -10,6 +14,11 @@ public class recommendation_system {
 
 
     //get all feed (frineds posts + recommended posts)
+    /**
+     * Gets the logged-in user's feed, including their own posts, posts from friends, and recommended posts.
+     *
+     * @return An ArrayList of Post objects representing the user's feed.
+     */
     public ArrayList<Post>get_logged_in_user_feed(){
         // we will have 2ArrayLists of integers (recommended_posts_ids,user_friends_post_ids)
         //1- remove duplicates
@@ -47,6 +56,11 @@ public class recommendation_system {
         posts_objects.addAll(user_published_posts);
         return posts_objects;
     }
+    /**
+     * Gets posts from the logged-in user's friends.
+     *
+     * @return An ArrayList of integers representing post IDs from the user's friends.
+     */
 
     // get posts from logged_in_user friends
     private ArrayList<Integer>get_logged_in_user_friends_posts(){//1-
@@ -62,6 +76,11 @@ public class recommendation_system {
 
         return friends_feed;
     }
+    /**
+     * Gets recommended posts for the logged-in user using collaborative filtering.
+     *
+     * @return An ArrayList of integers representing recommended post IDs.
+     */
     private ArrayList<Integer> getRecommendedPosts() {
         construct_useritem_matrix();
        ArrayList<Integer> recommendedPosts = new ArrayList<>();
@@ -115,7 +134,9 @@ public class recommendation_system {
         return dotProduct / (Math.sqrt(normTarget) * Math.sqrt(normOther));
     }
 
-
+    /**
+     * Constructs the user-item matrix based on user interactions with posts.
+     */
     private void construct_useritem_matrix() {
         for (interactions i : DATA.interactionList) {
             int user_id = i.getUser_id();

@@ -10,14 +10,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class DATA extends root_Data {
+public class DATA extends RootData {
 
-    static final String usersFilePath="Text Files/Users.txt";
-    static final String friendsFilePath="Text Files/Friends.txt";
-    static final String restrictedUsersFilePath="Text Files/restricted_users.txt";
-    static final String photosFilePath = "Text Files/Profile_Photo.txt";
-    static final String postsFilePath = "Text Files/posts.txt";
-    static final String interactionsFilePath = "Text Files/interactions.txt";
+    static final String usersFilePath="C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\Users.txt";
+    static final String friendsFilePath="C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\Friends.txt";
+    static final String restrictedUsersFilePath="C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\restricted_users.txt";
+    static final String photosFilePath = "C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\Profile_Photo.txt";
+    static final String postsFilePath = "C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\posts.txt";
+    static final String interactionsFilePath = "C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\interactions.txt";
+    static final String commentsFilepath = "C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\comments.txt";
 
     public static void read() throws FacebookExceptions {
         if(!(new File(usersFilePath).exists())){
@@ -33,9 +34,14 @@ public class DATA extends root_Data {
         } else if (!(new File(interactionsFilePath).exists())) {
             throw new FacebookExceptions(interactionsFilePath);
         } else {
+
+
             read_users();
             readPosts();
             read_interactions();
+            readCommentsFromFile();
+
+
         }
     }
     public static void writeDataToFile() throws FacebookExceptions {
@@ -52,19 +58,20 @@ public class DATA extends root_Data {
         } else if (!(new File(interactionsFilePath).exists())) {
             throw new FacebookExceptions(interactionsFilePath);
         } else {
-            clearFile("Text Files/Users.txt");
-            clearFile("Text Files/Friends.txt");
-            clearFile("Text Files/restricted_users.txt");
-            clearFile("Text Files/Profile_Photo.txt");
-            clearFile("Text Files/posts.txt");
-            clearFile("Text Files/interactions.txt");
-
+            clearFile("C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\Users.txt");
+            clearFile("C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\Friends.txt");
+            clearFile("C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\restricted_users.txt");
+            clearFile("C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\Profile_Photo.txt");
+            clearFile("C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\posts.txt");
+            clearFile("C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\interactions.txt");
+            clearFile("C:\\Users\\ahmed\\Desktop\\facebook_source\\source\\Text Files\\comments.txt");
             writeUsersToFile();
             writeFriendsToFile();
             writeRestrictedUsersToFile();
             writePhotosToFile();
             writePostsToFile();
             writeInteractionsToFile();
+            writeCommentsToFile();
         }
     }
 
@@ -87,8 +94,9 @@ public class DATA extends root_Data {
                         LocalDate date = LocalDate.parse(parts[5], formatter);
                         user = new User(id, name, email, gender, date, password, new ArrayList<>(), new ArrayList<>());
                         user.likedPosts = new ArrayList<>();
-                        user.profile_photo_path = "file:/D:/projects/Java/Facebook/source/src/main/resources/images/profile.png";
-                        DATA.users.add(user);
+                        user.profile_photo_path = "file:/C:/Users/ahmed/Desktop/Facebook/source/src/main/resources/images/profile.png";
+                        DATA.users.add(user);       //C:\Users\ahmed\Desktop\facebook_source\source\src\main\resources\images\profilephoto.png
+
                     }
                 }
             }
@@ -201,9 +209,29 @@ public class DATA extends root_Data {
 
 
     }
+    public static void readCommentsFromFile() {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(commentsFilepath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    int postId = Integer.parseInt(parts[0]);
+                    String commentText = parts[1];
+                    Comment comment = new Comment(commentText, postId);
+                    System.out.println(comment.getCommentText());
+                    DATA.Comments.add(comment);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     private static void read_interactions() {
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("Text Files/interactions.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(interactionsFilePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -222,7 +250,7 @@ public class DATA extends root_Data {
     private static void writeUsersToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(usersFilePath))) {
             for (User user : users) {
-                writer.write(user.id + " " + user.Email + " " + user.getName().replace(' ', '_') + " " + user.password + " " + user.gender + " " + user.Date.toString() + "\n");
+                writer.write(user.getId() + " " + user.getEmail() + " " + user.getName().replace(' ', '_') + " " + user.password + " " + user.gender + " " + user.Date.toString() + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -293,6 +321,22 @@ public class DATA extends root_Data {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
 
             writer.write("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void writeCommentsToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(commentsFilepath))) {
+            for (Comment comment : DATA.Comments) {
+                // Format: postId,commentText
+                String line = String.format("%d,%s",
+                        comment.getPostId(),
+                        comment.getCommentText());
+
+                writer.write(line);
+                writer.newLine();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

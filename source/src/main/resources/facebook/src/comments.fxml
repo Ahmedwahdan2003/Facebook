@@ -16,9 +16,10 @@
         </ScrollPane>
         <AnchorPane prefHeight="89.0" prefWidth="600.0">
             <children>
-                <TextField fx:id="commentTextField" layoutX="14.0" layoutY="12.0" prefHeight="43.0" prefWidth="490.0" />
-                <Button layoutX="542.0" layoutY="17.0" mnemonicParsing="false" onAction="#submitComment" prefHeight="34.0" prefWidth="75.0" text="Submit" />
+                <TextField fx:id="commentTextField" layoutY="2.0" prefHeight="68.0" prefWidth="490.0" />
+                <Button layoutX="496.0" layoutY="19.0" mnemonicParsing="false" onAction="#submitComment" prefHeight="34.0" prefWidth="95.0" text="Post comment" />
                 <Label fx:id="errorMessageLabel" layoutX="41.0" layoutY="60.0" prefHeight="17.0" prefWidth="386.0" textFill="#ff1c1c" />
+            <Button fx:id="Back_btn" layoutX="685.0" layoutY="34.0" mnemonicParsing="false" onAction="#submitComment" onMouseClicked="#commentBack_btn" prefHeight="34.0" prefWidth="53.0" text="Back" />
             </children>
         </AnchorPane>
     </children>

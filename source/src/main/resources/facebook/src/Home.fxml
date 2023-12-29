@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="facebook.src.chatController">
+   <left>
+      <HBox prefHeight="720.0" prefWidth="364.0" styleClass="purble-background" stylesheets="@Style.css" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="720.0" prefWidth="108.0" styleClass="black_purble-background" stylesheets="@Style.css">
+               <children>
+                  <Pane prefHeight="720.0" prefWidth="108.0">
+                     <children>
+                        <ImageView fx:id="ChatIcon2" fitHeight="59.0" fitWidth="54.0" layoutX="27.0" layoutY="225.0" onMouseClicked="#ChatIconClicked" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/chaticon2.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="ChatIcon" fitHeight="59.0" fitWidth="54.0" layoutX="27.0" layoutY="225.0" onMouseClicked="#ChatIconClicked" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/chaticon.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="GroupIcon" fitHeight="59.0" fitWidth="54.0" layoutX="27.0" layoutY="320.0" onMouseClicked="#GroupIconClicked" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../../images/groupsicon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="GroupIcon2" fitHeight="59.0" fitWidth="54.0" layoutX="27.0" layoutY="320.0" onMouseClicked="#GroupIconClicked" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../../images/groupsicon2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="SettingIcon" fitHeight="59.0" fitWidth="54.0" layoutX="27.0" layoutY="410.0" onMouseClicked="#SettingIconClicked" onMouseDragged="#SettingIconClicked" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/settingsicon.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="SettingIcon2" fitHeight="59.0" fitWidth="54.0" layoutX="27.0" layoutY="410.0" onMouseClicked="#SettingIconClicked" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/settingsicon2.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="exit_button" fitHeight="59.0" fitWidth="54.0" layoutX="27.0" layoutY="639.0" onMouseClicked="#ExitbuttonHandle" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/exit.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="UserPhoto" fitHeight="72.0" fitWidth="60.0" layoutX="24.0" layoutY="36.0" onMouseClicked="#UserPhotoClick" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/user.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Pane layoutX="107.0" prefHeight="720.0" prefWidth="2.0" styleClass="light_purble-background" stylesheets="@Style.css" />
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+            <VBox prefHeight="720.0" prefWidth="258.0">
+               <children>
+                  <Pane prefHeight="720.0" prefWidth="264.0">
+                     <children>
+                        <ImageView fitHeight="38.0" fitWidth="234.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../images/SearchBar.png" />
+                           </image>
+                        </ImageView>
+                        <Pane layoutX="-1.0" layoutY="63.0" prefHeight="3.0" prefWidth="258.0" styleClass="dark_purble-background" stylesheets="@Style.css" />
+                        <TextField fx:id="SearchTextField" focusTraversable="false" layoutX="54.0" layoutY="16.0" prefHeight="26.0" prefWidth="186.0" promptText="Search" styleClass="transparent-background" stylesheets="@Style.css">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </TextField>
+                        <VBox fx:id="recipients_vbox" layoutX="4.0" layoutY="76.0" prefHeight="645.0" prefWidth="246.0">
+                           <children>
+                              <HBox fx:id="recipient_hbox" prefHeight="43.0" prefWidth="254.0">
+                                 <children>
+                                    <ImageView fx:id="recipient_image_l" fitHeight="57.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                                       <clip>
+                                          <Circle centerX="26" centerY="26" radius="26" />
+                                       </clip>
+                                       <image>
+                                          <Image url="@../../images/profilephoto.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="50.0" prefWidth="145.0">
+                                       <children>
+                                          <Label fx:id="recipient_name_l" prefHeight="29.0" prefWidth="172.0" text="Ahmed Sameh " textFill="WHITE">
+                                             <font>
+                                                <Font name="Ebrima Bold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="recipient_massage_l" prefHeight="29.0" prefWidth="172.0" text="massage content" textFill="#90558e">
+                                             <font>
+                                                <Font name="Ebrima" size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <Label fx:id="recipient_time_l" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="44.0" text="03:30" textAlignment="CENTER" textFill="WHITE" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets right="2.0" />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="5.0" right="5.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </left>
+   <center>
+      <Pane prefHeight="720.0" prefWidth="606.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="81.0" fitWidth="672.0" layoutX="14.0" layoutY="647.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/ChatRectangle.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="697.0" prefHeight="720.0" prefWidth="3.0" styleClass="Light-Gray-background" stylesheets="@Style.css" />
+            <Pane layoutX="2.0" layoutY="63.0" prefHeight="3.0" prefWidth="697.0" styleClass="Light-Gray-background" stylesheets="@Style.css" />
+            <ImageView fitHeight="35.0" fitWidth="27.0" layoutX="33.0" layoutY="655.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/ImageIcon.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="recipient_image" fitHeight="58.0" fitWidth="49.0" layoutX="25.0" layoutY="6.0" onMouseClicked="#UserPhotoClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/user.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="26.0" fitWidth="34.0" layoutX="642.0" layoutY="659.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/SendIcon.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="MessageTextField" focusTraversable="false" layoutX="74.0" layoutY="653.0" onAction="#sendMessage" prefHeight="39.0" prefWidth="531.0" promptText="Type Your Message Here" styleClass="transparent-background" stylesheets="@Style.css">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="Ebrima Bold" size="18.0" />
+               </font>
+            </TextField>
+            <Label fx:id="recipient_label" layoutX="86.0" layoutY="9.0" prefHeight="37.0" prefWidth="264.0" text="Ahmed Sameh" textFill="#402e58">
+               <font>
+                  <Font name="Ebrima Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="recipient_status" layoutX="86.0" layoutY="30.0" prefHeight="37.0" prefWidth="264.0" text="Offline" textFill="#402e58">
+               <font>
+                  <Font name="Ebrima" size="18.0" />
+               </font>
+            </Label>
+            <Circle fx:id="recipient_green" fill="#1fff38" layoutX="157.0" layoutY="49.0" radius="6.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fx:id="recipient_red" fill="#ff2121" layoutX="157.0" layoutY="49.0" radius="6.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" />
+            <ScrollPane layoutX="5.0" layoutY="71.0" prefHeight="567.0" prefWidth="685.0">
+               <content>
+                  <VBox fx:id="mainVBox" prefHeight="559.0" prefWidth="683.0">
+                     <children>
+                        <HBox fx:id="re_hbox" prefHeight="50.0" prefWidth="658.0">
+                           <children>
+                              <ImageView fx:id="recipient_image2" fitHeight="54.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                 <clip>
+                                    <Circle centerX="26" centerY="26" radius="26" />
+                                 </clip>
+                                 <image>
+                                    <Image url="@../../images/user.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane prefHeight="53.0" prefWidth="283.0">
+                                 <children>
+                                    <ImageView fx:id="re_chat" fitHeight="46.0" fitWidth="280.0" layoutY="4.0" pickOnBounds="true">
+                                       <image>
+                                          <Image url="@../../images/se_chat.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="re_chat_lb" layoutX="27.0" layoutY="10.0" prefHeight="35.0" prefWidth="245.0" text="Message here " textFill="WHITE">
+                                       <font>
+                                          <Font name="Ebrima Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <Label fx:id="re_time" prefHeight="35.0" prefWidth="245.0" text="03:30" textFill="#d3d3d3">
+                                 <font>
+                                    <Font name="Ebrima Bold" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="se_hbox" alignment="TOP_RIGHT" prefHeight="53.0" prefWidth="635.0">
+                           <children>
+                              <Label fx:id="se_time" contentDisplay="RIGHT" prefHeight="37.0" prefWidth="59.0" text="03:30" textFill="#d3d3d3">
+                                 <font>
+                                    <Font name="Ebrima Bold" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Pane prefHeight="53.0" prefWidth="271.0">
+                                 <children>
+                                    <ImageView fx:id="se_chat" fitHeight="46.0" fitWidth="280.0" layoutX="-9.0" layoutY="4.0" pickOnBounds="true">
+                                       <image>
+                                          <Image url="@../../images/re_chat.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="se_chat_lb" layoutX="7.0" layoutY="10.0" prefHeight="35.0" prefWidth="245.0" text="Message here " textFill="WHITE">
+                                       <font>
+                                          <Font name="Ebrima Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <ImageView fx:id="client_image" fitHeight="54.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                 <clip>
+                                    <Circle centerX="26" centerY="26" radius="26" />
+                                 </clip>
+                                 <image>
+                                    <Image url="@../../images/user.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

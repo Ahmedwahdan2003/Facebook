@@ -10,6 +10,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+/**
+ * The PostLayout class represents the visual layout for displaying a post in the Facebook application.
+ * It extends the VBox class to arrange the elements in a vertical column.
+ */
 
 public class PostLayout extends VBox {
 
@@ -18,16 +22,24 @@ public class PostLayout extends VBox {
     protected TextArea postContent;
     protected Button postLikeBtn;
     protected Button commentPostBtn;
-
+        Post currentPost;
      protected int author_id;
      protected int post_id;
+    /**
+     * Constructs a new PostLayout with the specified author ID and post ID.
+     *
+     * @param author_id The unique identifier of the post author.
+     * @param post_id   The unique identifier of the post.
+     */
     public PostLayout(int author_id,int post_id) {
         this.author_id=author_id;
         this.post_id=post_id;
         initialize();
         setHandlers();
     }
-
+    /**
+     * Initializes the visual elements of the PostLayout.
+     */
     protected void initialize() {
         postAuthorUsername = new Label();
         taggedUsersHBox = new HBox();
@@ -59,11 +71,17 @@ public class PostLayout extends VBox {
         postLikeBtn.setTextFill(Color.WHITE);
 
     }
+    /**
+     * Sets the data for the post and updates the display.
+     *
+     * @param p The Post object containing the post data.
+     * @return This PostLayout instance for method chaining.
+     */
     public VBox setPostData(Post p) {
         User author = DATA.getUserById(p.author_id);
         assert author != null;
         postAuthorUsername.setText(author.getName());
-
+        this.currentPost=p;
 
         for (int taggedid : p.tagged_users_ids) {
             String tagedName = DATA.users.get(taggedid - 1).name;
@@ -90,9 +108,14 @@ public class PostLayout extends VBox {
         else postLikeBtn.setText("LIKE (" + Integer.toString(currPost.likesCount).concat(")"));
         postLikeBtn.setOnAction(event -> handleLikeButtonClick());
     }
-
+    /**
+     * Handles the action when the comment button is clicked.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     * @throws IOException If an I/O error occurs.
+     */
     private void handleCommentButtonClick(ActionEvent event) throws IOException {
-        Comment comment1 = new Comment("Comment1", 12);
+        /*Comment comment1 = new Comment("Comment1", 12);
         Comment comment2 = new Comment("Comment2", 12);
         Comment comment3 = new Comment("Comment3", 12);
         Comment comment4 = new Comment("Comment4", 12);
@@ -101,18 +124,23 @@ public class PostLayout extends VBox {
         DATA.Comments.add(comment2);
         DATA.Comments.add(comment3);
         DATA.Comments.add(comment4);
+
+         */
         Scene_Changer scene_changer = new Scene_Changer();
         scene_changer.loadAndSetScene(event,"comments.fxml");
-        System.out.println(post_id);
         CommentController commentController = scene_changer.loader.getController();
+        commentController.setCurrentpost(currentPost);
         for(Comment comment:DATA.Comments){
-            if(comment.getPostId()==post_id){
+            System.out.println(comment.getCommentText());
+            if(comment.getPostId()==currentPost.post_id){
                 VBox CommentVbox = commentController.createCommentBox(comment);
                 commentController.commentsContainer.getChildren().add(CommentVbox);
             }
         }
     }
-
+    /**
+     * Handles the action when the like button is clicked.
+     */
     private void handleLikeButtonClick() {
         Post currPost= DATA.Posts.get(post_id - 1);
         if (isLiked) {

@@ -32,13 +32,11 @@ public class ChangeInfo {
         }
     }
     @FXML private void save(Event event) throws IOException, FacebookExceptions {
-        if(newPass.getText().startsWith(" ") || newName.getText().startsWith(" ") || newEmail.getText().startsWith(" ")){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Save Failed");
-            alert.setHeaderText("The Data can't start with space Character");
-            alert.showAndWait();
-        }
-        else if(currentPass.getText().equals(DATA.currentUser.password)){
+        if((newName.getText().isEmpty())) newName.setText(DATA.currentUser.name);
+        if((newEmail.getText().isEmpty())) newEmail.setText(DATA.currentUser.Email);
+        if((newPass.getText().isEmpty())) newPass.setText(DATA.currentUser.password);
+
+        if(FacebookExceptions.WrongInput(newName.getText(), newPass.getText(), newEmail.getText()) && currentPass.getText().equals(DATA.currentUser.password)){
             if(!(newName.getText().isEmpty())) DATA.currentUser.name = newName.getText();
             if(!(newEmail.getText().isEmpty())) DATA.currentUser.Email = newEmail.getText();
             if(!(newPass.getText().isEmpty())) DATA.currentUser.password = newPass.getText();

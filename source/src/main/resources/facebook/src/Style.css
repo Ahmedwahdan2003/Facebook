@@ -1,0 +1,26 @@
+.black_purble-background {
+    -fx-background-color: #35244d;
+}
+.light_purble-background {
+    -fx-background-color: #4a3860;
+}
+.purble-background {
+    -fx-background-color: #402e58;
+}
+.dark_purble-background {
+    -fx-background-color: #3c2a54;
+}
+.transparent-background {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+#SearchTextField {
+    -fx-text-fill: white;
+}
+.Light-Gray-background {
+    -fx-background-color: #eeeeee;
+}
+.scroll-pane {
+    -fx-background-color:transparent;
+    -fx-border-color:transparent;
+    -fx-scrollbar: none;
+}
